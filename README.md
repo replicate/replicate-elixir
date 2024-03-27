@@ -69,6 +69,26 @@ You can start a model and run it in the background with `Replicate.Predictions.c
   "starting"
 ```
 
+You can also load local files as input, e.g. Read File (binary for non-text files) -> Base64 Encode -> Create Data URI:
+```elixir
+iex> binary_content = File.read!("./audio.wav")
+<<79, 103, 103, 83, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, ...>>
+iex> base64_content = Base.encode64(binary_content)
+...
+iex> data_uri = "data:audio/wav;base64," <> base64_content
+...
+iex> Replicate.run(
+...>   "vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c",
+...>     audio: data_uri,
+...>     task: "transcribe",
+...>     language: "None",
+...     timestamp: "chunk",
+...     batch_size: 64,
+...     diarize: false
+... )
+...
+```
+
 We can take a look at the prediction:
 ```elixir
   iex> prediction
