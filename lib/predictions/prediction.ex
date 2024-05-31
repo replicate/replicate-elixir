@@ -9,6 +9,7 @@ defmodule Replicate.Predictions.Prediction do
     :logs,
     :output,
     :status,
+    :model,
     :version,
     :urls,
     :created_at,
